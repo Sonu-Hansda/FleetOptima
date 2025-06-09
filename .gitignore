@@ -1,0 +1,3 @@
+backend/venv
+backend/logistics.db
+backend/**/__pycache__
