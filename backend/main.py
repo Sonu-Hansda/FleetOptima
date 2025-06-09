@@ -78,30 +78,7 @@ def get_vehicles(db: Session = Depends(get_db_session)):
 
 @app.post("/suggest-vehicle")
 def suggest_vehicle(route: RouteRequest, db: Session = Depends(get_db_session)):
-    distance_km = haversine_distance(
-        route.start_lat, route.start_lon,
-        route.end_lat, route.end_lon
-    )
-
-    suitable_vehicles = db.query(VehicleDB).filter(
-        VehicleDB.is_available == True,
-        VehicleDB.max_range_km >= distance_km
-    ).all()
-
-    if not suitable_vehicles:
-        return {"message": "No suitable vehicle found"}
-
-    # Sort by closest range match
-    suitable_vehicles.sort(key=lambda v: v.max_range_km - distance_km)
-    best_vehicle = suitable_vehicles[0]
-
+    
     return {
-        "distance_km": distance_km,
-        "best_vehicle": {
-            "id": best_vehicle.id,
-            "registration_number": best_vehicle.registration_number,
-            "type_name": best_vehicle.type.name,
-            "max_range_km": best_vehicle.max_range_km
-        },
-        "message": f"Recommended {best_vehicle.type.name} ({best_vehicle.registration_number})"
+       "TODO":"AI Based Suggestion"
     }
